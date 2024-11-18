@@ -1,0 +1,5 @@
+// 1. What is the probability of reaching state B starting from state A?
+P=? [ F "state_B" ]
+
+// 2. What is the expected number of steps to reach state B?
+R{"steps"}=? [ F "state_B" ]

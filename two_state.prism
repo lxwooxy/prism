@@ -1,0 +1,19 @@
+dtmc
+
+module two_state
+    // State variable
+    s : [0..1] init 0; // 0 = A, 1 = B (start in state A)
+
+    // Transitions
+    [] s=0 -> 1.0 : (s'=1); // Always move from A (s=0) to B (s=1)
+    [] s=1 -> 1.0 : (s'=0); // Always move from B (s=1) to A (s=0)
+endmodule
+
+// Label the states
+label "state_A" = (s=0);
+label "state_B" = (s=1);
+
+// Reward structure to count steps
+rewards "steps"
+    true : 1; // Add 1 reward for every step taken
+endrewards
