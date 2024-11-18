@@ -1,30 +1,37 @@
 dtmc
 
-const int N = 100; // Total number of people in the population
+const int N = 100;         // Total number of people in the population
+const int IMMUNITY_PERIOD = 5; // Steps before recovered individuals can be reinfected
 
 module epidemic
-    s : [0..N] init N;    // Number of Susceptible individuals
-    i : [0..N] init 1;    // Number of Infected individuals
-    r : [0..N] init 0;    // Number of Recovered individuals
+    s : [0..N] init N;         // Number of Susceptible individuals
+    i : [0..N] init 1;         // Number of Infected individuals
+    r : [0..N] init 0;         // Number of Recovered individuals
+    steps_since_recovery : [0..IMMUNITY_PERIOD] init 0; // Steps since last recovery
 
-    // There is a chance for the epidemic to continue 
+    // Main infection and recovery process
     [] s > 0 & i > 0 & i < N & r < N -> 
         0.5 : (s' = s - 1) & (i' = i + 1) +  // One person gets infected
-        0.3 : (i' = i - 1) & (r' = r + 1) +  // One person recovers
-        0.2 : (s' = s) & (i' = i) & (r' = r); // Nothing happens
+        0.3 : (i' = i - 1) & (r' = r + 1) & (steps_since_recovery' = 0) +  // One person recovers
+        0.2 : (s' = s) & (i' = i) & (r' = r) & (steps_since_recovery' = min(IMMUNITY_PERIOD, steps_since_recovery + 1)); // Nothing happens
 
     // Recovery-only case when no susceptible individuals remain
     [] s = 0 & i > 0 & r < N -> 
-        0.5 : (i' = i - 1) & (r' = r + 1) +  // Infected recovers
-        0.5 : (s' = s) & (i' = i) & (r' = r); // No change
+        0.5 : (i' = i - 1) & (r' = r + 1) & (steps_since_recovery' = 0) +  // Infected recovers
+        0.5 : (s' = s) & (i' = i) & (r' = r) & (steps_since_recovery' = min(IMMUNITY_PERIOD, steps_since_recovery + 1)); // No change
+
+    // Reinfection of recovered individuals after immunity period
+    [] r > 0 & steps_since_recovery = IMMUNITY_PERIOD & i < N & s < N -> 
+        0.1 : (r' = r - 1) & (i' = i + 1) & (steps_since_recovery' = 0) + // Recovered individual gets reinfected
+        0.9 : (r' = r) & (i' = i) & (s' = s) & (steps_since_recovery' = IMMUNITY_PERIOD); // No reinfection
 
     // Terminal state: No transitions when no susceptible or infected individuals remain
     [] s = 0 & i = 0 -> 
-        1.0 : (s' = s) & (i' = i) & (r' = r);
+        1.0 : (s' = s) & (i' = i) & (r' = r) & (steps_since_recovery' = steps_since_recovery);
 
-    // Default self-loop
+    // Default self-loop for undefined cases
     [] true -> 
-        1.0 : (s' = s) & (i' = i) & (r' = r); 
+        1.0 : (s' = s) & (i' = i) & (r' = r) & (steps_since_recovery' = steps_since_recovery);
 
 endmodule
 
