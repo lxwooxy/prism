@@ -1,0 +1,8 @@
+// Probability of reaching the leftmost position
+P=? [ F "leftmost" ]
+
+// Probability of reaching the rightmost position
+P=? [ F "rightmost" ]
+
+// Expected steps to reach either endpoint
+R{"steps"}=? [ F ("leftmost" | "rightmost") ]

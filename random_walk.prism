@@ -1,0 +1,23 @@
+dtmc
+
+const int N = 5; // Number of positions (e.g., -5, ..., 0, ..., 5)
+
+module walker
+    pos : [-N..N] init 0; // Start in the middle
+
+    // Probabilistic transitions for intermediate positions
+    [] pos > -N & pos < N -> 0.5 : (pos' = pos - 1) + 0.5 : (pos' = pos + 1);
+
+    // Transitions for edge positions
+    [] pos = -N -> 1.0 : (pos' = pos + 1); // At leftmost edge, only move right
+    [] pos = N -> 1.0 : (pos' = pos - 1);  // At rightmost edge, only move left
+endmodule
+
+// Labels for states
+label "leftmost" = (pos = -N);
+label "rightmost" = (pos = N);
+
+// Reward structure for counting steps
+rewards "steps"
+    true : 1; // Add 1 reward for every transition
+endrewards
