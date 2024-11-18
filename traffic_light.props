@@ -1,0 +1,8 @@
+// 1. Probability of being in Green within 5 transitions
+P=? [ F<=5 "green" ]
+
+// 2. Long-run probability of being in Green
+S=? [ "green" ]
+
+// 3. Expected transitions to return to Green
+R{"steps"}=? [ F "green" ]

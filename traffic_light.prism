@@ -1,0 +1,20 @@
+dtmc
+
+module traffic_light
+    state : [0..2] init 0; // 0 = Green, 1 = Yellow, 2 = Red
+
+    // Transitions
+    [] state=0 -> 0.8 : (state'=1) + 0.2 : (state'=2); // Green to Yellow or Red
+    [] state=1 -> 1.0 : (state'=2); // Yellow to Red
+    [] state=2 -> 1.0 : (state'=0); // Red to Green
+endmodule
+
+// Labels
+label "green" = (state=0);
+label "yellow" = (state=1);
+label "red" = (state=2);
+
+// Reward structure for counting transitions
+rewards "steps"
+    true : 1; // Add 1 reward for every transition
+endrewards

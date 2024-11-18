@@ -1,0 +1,8 @@
+// Probability of winning
+P=? [ F "win" ]
+
+// Probability of losing
+P=? [ F "lose" ]
+
+// Expected number of rolls to finish the game
+R{"steps"}=? [ F ("win" | "lose") ]
