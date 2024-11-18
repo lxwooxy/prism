@@ -1,0 +1,10 @@
+// 1. Probability of eventually reaching state B starting from state A
+P=? [ F "state_B" ]
+
+// 2. Expected number of steps to reach state B starting from state A
+R{"steps"}=? [ F "state_B" ]
+
+// 3. Probability of staying in state A after 5 transitions
+P=? [ F<=5 "state_A" ]
+
+// 4. Probability of visiting state B and then returning to state A

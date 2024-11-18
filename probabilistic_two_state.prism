@@ -1,0 +1,23 @@
+dtmc
+
+module probabilistic_two_state
+    // State variable
+    s : [0..1] init 0; // 0 = A, 1 = B (start in state A)
+    visited_B : bool init false; // Flag to track if state B has been visited
+
+    // Transitions
+    [] s=0 -> 0.7 : (s'=1) & (visited_B'=true) + 0.3 : (s'=0);
+    [] s=1 -> 0.6 : (s'=0) + 0.4 : (s'=1);
+endmodule
+
+// Labels for states
+label "state_A" = (s=0);
+label "state_B" = (s=1);
+
+// Label for the compound condition: Visit B and return to A
+label "visit_B_then_A" = (visited_B=true & s=0);
+
+// Reward structure for counting steps
+rewards "steps"
+    true : 1; // Add 1 reward for every transition
+endrewards

@@ -1,0 +1,109 @@
+PRISM
+=====
+
+Version: 4.8.1
+Date: Mon Nov 18 09:59:11 EST 2024
+Hostname: georgina-beepboop.local
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism probabilistic_two_state.prism probabilistic_two_state.props
+
+Parsing model file "probabilistic_two_state.prism"...
+
+Type:        DTMC
+Modules:     probabilistic_two_state
+Variables:   s visited_B
+
+Parsing properties file "probabilistic_two_state.props"...
+
+3 properties:
+(1) P=? [ F "state_B" ]
+(2) R{"steps"}=? [ F "state_B" ]
+(3) P=? [ F<=5 "state_A" ]
+
+---------------------------------------------------------------------
+
+Model checking: P=? [ F "state_B" ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 3 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.045 seconds.
+
+Type:        DTMC
+States:      3 (1 initial)
+Transitions: 6
+
+Transition matrix: 16 nodes (5 terminal), 6 minterms, vars: 2r/2c
+
+Prob0: 2 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 0, maybe = 0
+
+Value in the initial state: 1.0
+
+Time for model checking: 0.01 seconds.
+
+Result: 1.0 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: R{"steps"}=? [ F "state_B" ]
+
+Prob0: 2 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+goal = 1, inf = 0, maybe = 2
+
+Computing remaining rewards...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=2, nodes=6] [0.3 KB]
+Adding explicit sparse matrices... [levels=2, num=1, compact] [0.0 KB]
+Creating vector for diagonals... [dist=2, compact] [0.0 KB]
+Creating vector for RHS... [dist=2, compact] [0.0 KB]
+Allocating iteration vectors... [2 x 0.0 KB]
+TOTAL: [0.4 KB]
+
+Starting iterations...
+
+Jacobi: 2 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 1.4285714285714286
+
+Time for model checking: 0.007 seconds.
+
+Result: 1.4285714285714286 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: P=? [ F<=5 "state_A" ]
+
+Prob0: 2 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 2, no = 0, maybe = 1
+
+Computing probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=2, nodes=9] [0.4 KB]
+Adding explicit sparse matrices... [levels=2, num=1, compact] [0.0 KB]
+Creating vector for yes... [dist=2, compact] [0.0 KB]
+Allocating iteration vectors... [2 x 0.0 KB]
+TOTAL: [0.5 KB]
+
+Starting iterations...
+
+Iterative method: 5 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 1.0
+
+Time for model checking: 0.004 seconds.
+
+Result: 1.0 (exact floating point)
+
