@@ -29,7 +29,7 @@ This repository contains small projects created using the **PRISM Model Checker*
    - Files: `two_state.prism`, `two_state.props`
 
 7. **Epidemic Model**:
-   - A WIP, at the moment recovered individuals cannot be reinfected. The universe is not that nice.
+   - A WIP, at the moment recovered individuals CAN be reinfected. but its not heterogeneous yet. I'm not even sure if PRISM supports arrays tbh.
 
 ## Output Files
 
