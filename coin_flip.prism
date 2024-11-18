@@ -1,0 +1,19 @@
+dtmc // This specifies we are using a Discrete-Time Markov Chain (DTMC)
+
+// A coin flip model
+module coin
+
+    // State variables
+    s : [0..3] init 0; // Current flip (0=start, 3=end)
+    h : [0..1] init 0; // Heads counter (1 if heads has been flipped, 0 otherwise)
+
+    // Transitions
+    [] s=0 -> 0.5 : (h'=1) & (s'=1) + 0.5 : (h'=0) & (s'=1); // Flip 1
+    [] s=1 -> 0.5 : (h'=1) & (s'=2) + 0.5 : (h'=h) & (s'=2); // Flip 2
+    [] s=2 -> 0.5 : (h'=1) & (s'=3) + 0.5 : (h'=h) & (s'=3); // Flip 3
+    [] s=3 -> (s'=3); // End state (no transitions)
+
+endmodule
+
+// Labels
+label "got_heads" = (h=1); // Define a label for the event of flipping heads
