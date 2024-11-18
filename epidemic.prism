@@ -1,0 +1,35 @@
+dtmc
+
+const int N = 100; // Total number of people in the population
+
+module epidemic
+    s : [0..N] init N;    // Number of Susceptible individuals
+    i : [0..N] init 1;    // Number of Infected individuals
+    r : [0..N] init 0;    // Number of Recovered individuals
+
+    // There is a chance for the epidemic to continue 
+    [] s > 0 & i > 0 & i < N & r < N -> 
+        0.5 : (s' = s - 1) & (i' = i + 1) +  // One person gets infected
+        0.3 : (i' = i - 1) & (r' = r + 1) +  // One person recovers
+        0.2 : (s' = s) & (i' = i) & (r' = r); // Nothing happens
+
+    // Recovery-only case when no susceptible individuals remain
+    [] s = 0 & i > 0 & r < N -> 
+        0.5 : (i' = i - 1) & (r' = r + 1) +  // Infected recovers
+        0.5 : (s' = s) & (i' = i) & (r' = r); // No change
+
+    // Terminal state: No transitions when no susceptible or infected individuals remain
+    [] s = 0 & i = 0 -> 
+        1.0 : (s' = s) & (i' = i) & (r' = r);
+
+    // Default self-loop
+    [] true -> 
+        1.0 : (s' = s) & (i' = i) & (r' = r); 
+
+endmodule
+
+label "epidemic_over" = (i = 0);
+
+rewards "steps"
+    true : 1;
+endrewards

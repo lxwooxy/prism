@@ -1,0 +1,11 @@
+// Probability that the epidemic ends
+P=? [ F "epidemic_over" ]
+
+// Expected number of steps until the epidemic ends
+R{"steps"}=? [ F "epidemic_over" ]
+
+// Probability of all susceptible individuals being infected
+P=? [ F (s = 0 & i > 0) ]
+
+// Expected number of recoveries before the epidemic ends
+R{"steps"}=? [ F (r = 5) ]

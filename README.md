@@ -28,6 +28,9 @@ This repository contains small projects created using the **PRISM Model Checker*
    - A basic DTMC that alternates deterministically between two states.
    - Files: `two_state.prism`, `two_state.props`
 
+7. **Epidemic Model**:
+   - A WIP, at the moment recovered individuals cannot be reinfected. The universe is not that nice.
+
 ## Output Files
 
 Each project has an accompanying output file (`*.txt`) containing the results of property verification using PRISM. These include probabilities, expected steps, and steady-state calculations.
